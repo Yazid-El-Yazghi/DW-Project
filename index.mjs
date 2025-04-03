@@ -37,7 +37,6 @@ const translations = {
         sortByLabel: 'Sorteren op:',
         sortByName: 'Naam',
         sortByDistance: 'Afstand',
-        sortByPopularity: 'Populariteit',
         favoritesSectionTitle: 'Mijn favorieten',
         favoritesEmptyMessage: 'Je hebt nog geen favorieten toegevoegd.',
         viewDetailsButton: 'Meer details',
@@ -72,7 +71,6 @@ const translations = {
         sortByLabel: 'Trier par:',
         sortByName: 'Nom',
         sortByDistance: 'Distance',
-        sortByPopularity: 'Popularité',
         favoritesSectionTitle: 'Mes favoris',
         favoritesEmptyMessage: 'Vous n\'avez pas encore ajouté de favoris.',
         viewDetailsButton: 'Plus de détails',
@@ -107,7 +105,6 @@ const translations = {
         sortByLabel: 'Sort by:',
         sortByName: 'Name',
         sortByDistance: 'Distance',
-        sortByPopularity: 'Popularity',
         favoritesSectionTitle: 'My Favorites',
         favoritesEmptyMessage: 'You have not added any favorites yet.',
         viewDetailsButton: 'More details',
@@ -282,10 +279,6 @@ function filterAndDisplayLocations() {
                 if (a.distance === null) return 1;
                 if (b.distance === null) return -1;
                 return a.distance - b.distance;
-            case 'popularity':
-                const aIsFavorite = favorites.includes(a.id) ? 1 : 0;
-                const bIsFavorite = favorites.includes(b.id) ? 1 : 0;
-                return bIsFavorite - aIsFavorite;
             default:
                 return 0;
         }
@@ -460,7 +453,6 @@ function changeLanguage() {
     document.getElementById('filter-type').querySelector('option').textContent = translations[currentLanguage].filterTypeAll;
     document.getElementById('sort-by').querySelectorAll('option')[0].textContent = translations[currentLanguage].sortByName;
     document.getElementById('sort-by').querySelectorAll('option')[1].textContent = translations[currentLanguage].sortByDistance;
-    document.getElementById('sort-by').querySelectorAll('option')[2].textContent = translations[currentLanguage].sortByPopularity;
 
     // Update view details button in the template
     const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
