@@ -85,7 +85,7 @@
 
 /* Dark theme */
 .dark-theme {
-    --primary-color: #1a2530;
+    --primary-color: #8bbef1;
     --secondary-color: #2980b9;
     --accent-color: #c0392b;
     --background-color: #222;
@@ -95,7 +95,7 @@
 }
 
 #theme-switch svg {
-    fill: var(white);
+    fill: var(--text-color);
 }
 
 #theme-switch svg:last-child {
