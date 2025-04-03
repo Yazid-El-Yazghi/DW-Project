@@ -10,20 +10,24 @@
 <body>
     <header>
         <div>
-            <h1>BrusselsExplorer</h1>
-            <p>Ontdekkingstocht door Brussel</p>
-        </div>
-        <div>
-            <button id="theme-switch" aria-label="Toggle dark mode">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
-                </svg>
-            </button>
-            <select id="language-select">
-                <option value="nl">Nederlands</option>
-                <option value="fr">Français</option>
-                <option value="en">English</option>
-            </select>
+            <div class="title">
+                <a href="index.html">
+                    <h1>BrusselsExplorer</h1>
+                    <p>Ontdekkingstocht door Brussel</p>
+                </a>
+            </div>
+            <div class="header-controls">
+                <button id="theme-switch" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+                    </svg>
+                </button>
+                <select id="language-select">
+                    <option value="nl">Nederlands</option>
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
         </div>
     </header>
 
@@ -51,21 +55,19 @@
             </div>
         </section>
 
-        <div class="content-container">
-            <section class="locations-container">
-                <h2>Locaties in Brussel</h2>
-                <div id="loading">
-                    <p>Locaties laden...</p>
-                    <div class="spinner"></div>
-                </div>
-                <div id="locations-list"></div>
-            </section>
+        <section class="locations-container">
+            <h2>Culturele plaatsen in Brussel</h2>
+            <div id="loading">
+                <p>Locaties laden...</p>
+                <div class="spinner"></div>
+            </div>
+            <div id="locations-list"></div>
+        </section>
 
-            <section class="map-container">
-                <h2>Kaart</h2>
-                <div id="map"></div>
-            </section>
-        </div>
+        <section class="map-container">
+            <h2>Kaart</h2>
+            <div id="map"></div>
+        </section>
 
         <section class="detail-section" id="location-detail">
             <button id="back-button">← Terug</button>
@@ -84,6 +86,25 @@
         <p>BrusselsExplorer - Een project voor Dynamic Web</p>
         <p>Data via <a href="https://opendata.brussels.be" target="_blank">opendata.brussels</a></p>
     </footer>
+
+    <!-- Templates -->
+    <template id="location-card-template">
+        <div class="location-card">
+            <div class="location-header">
+                <h3 class="location-name"></h3>
+                <button class="favorite-btn" aria-label="Voeg toe aan favorieten">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+            <div class="location-details">
+                <p class="location-type"><i class="fas fa-tag"></i> <span></span></p>
+                <p class="location-address"><i class="fas fa-map-marker-alt"></i> <span></span></p>
+                <p class="location-distance"><i class="fas fa-location-arrow"></i> <span></span></p>
+                <button class="view-details-btn">Meer details</button>
+            </div>
+        </div>
+    </template>
+
     <script type="module" src="index.mjs"></script>
 </body>
 </html>
