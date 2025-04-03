@@ -2,6 +2,7 @@
     margin: 0 0 5px 0;
     font-size: 1rem;
     color: var(--primary-color);
+    font-weight: 600;
 }
 
 .marker-popup p {
@@ -20,7 +21,15 @@
     display: block;
     width: 100%;
     text-align: center;
-}.welcome-message {
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.popup-details-btn:hover {
+    background-color: var(--secondary-color-hover);
+}
+
+.welcome-message {
     text-align: center;
     padding: 3rem 1rem;
     background-color: rgba(52, 152, 219, 0.1);
@@ -51,6 +60,7 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
+    --secondary-color-hover: #2980b9;
     --accent-color: #e74c3c;
     --background-color: #f5f5f5;
     --text-color: #333;
@@ -61,6 +71,37 @@
 .title a {
     color: inherit; /* Prevents the link from turning blue */
     text-decoration: none; /* Removes the underline */
+}
+
+#favorites-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 38px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+#favorites-button:hover {
+    background-color: var(--secondary-color-hover);
+}
+
+#favorites-button i {
+    color: white;
+}
+
+#favorites-button.active {
+    background-color: var(--accent-color);
+}
+
+#favorites-button.active i {
+    color: white;
 }
 
 #theme-switch {
@@ -87,6 +128,7 @@
 .dark-theme {
     --primary-color: #8bbef1;
     --secondary-color: #2980b9;
+    --secondary-color-hover: #3498db;
     --accent-color: #c0392b;
     --background-color: #222;
     --text-color: #f5f5f5;
@@ -130,7 +172,7 @@ header {
     box-shadow: 0 2px 4px var(--shadow-color);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000; /* Verhoogde z-index zodat het boven de kaart blijft */
 }
 
 header > div {
@@ -252,13 +294,21 @@ section h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+#loading p {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
     border-left-color: var(--secondary-color);
     animation: spin 1s linear infinite;
@@ -357,36 +407,80 @@ section h2 {
 /* Detail view */
 .detail-section {
     display: none;
+    scroll-margin-top: 80px; /* Zorgt ervoor dat er ruimte is boven de detail sectie wanneer erheen wordt gescrolled */
+    width: 100%; /* Volle breedte, niet gecentreerd */
+    max-width: none; /* Geen maximale breedte */
 }
 
 #back-button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
     border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+#back-button:hover {
+    background-color: var(--secondary-color);
 }
 
 .detail-info {
     margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.detail-info p {
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.detail-info p strong {
+    min-width: 80px;
+    display: inline-block;
 }
 
 .detail-description {
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    color: var(--text-color);
 }
 
-.map-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-    background-color: var(--secondary-color);
+#detail-favorite-btn {
+    background-color: var(--primary-color);
     color: white;
-    text-decoration: none;
+    border: none;
+    padding: 0.7rem 1rem;
     border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+#detail-favorite-btn:hover {
+    background-color: var(--accent-color);
+}
+
+#detail-favorite-btn i {
+    font-size: 1.1rem;
+}
+
+#detail-favorite-btn.active {
+    background-color: var(--accent-color);
 }
 
 /* Favorites section */
@@ -427,23 +521,82 @@ section h2 {
 }
 
 /* Messages */
-.no-results {
-    text-align: center;
+.welcome-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 2rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    margin: 2rem auto;
+    width: 260px; /* Vaste breedte gebaseerd op de schermafbeelding */
+    min-height: 175px; /* Vaste hoogte gebaseerd op de schermafbeelding */
+}
+
+.welcome-message i {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.welcome-message p {
+    font-size: 1rem;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    margin: 2rem auto;
+    width: 260px; /* Vaste breedte gebaseerd op de schermafbeelding */
+    min-height: 175px; /* Vaste hoogte gebaseerd op de schermafbeelding */
 }
 
 .no-results i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--secondary-color);
     margin-bottom: 1rem;
+    display: block;
+}
+
+.no-results p {
+    font-size: 1rem;
+    color: var(--text-color);
+    text-align: center;
 }
 
 .error-message {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 2rem;
     background-color: rgba(231, 76, 60, 0.1);
     border-radius: 8px;
-    margin: 1rem 0;
+    margin: 2rem auto;
+    width: 260px;
+    min-height: 175px;
+}
+
+.error-message i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.error-message p {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .error-message button {
@@ -453,7 +606,16 @@ section h2 {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 1rem;
+    font-weight: 500;
+}
+
+/* Marker styles */
+.user-location-marker {
+    color: var(--accent-color) !important;
+}
+
+.user-location-marker .leaflet-marker-icon {
+    filter: hue-rotate(140deg) saturate(1.5);
 }
 
 /* Footer */
